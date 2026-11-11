@@ -6,6 +6,10 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Catalog cover in Melimelo's colors: deep green, cream, coral and yellow, Gabarito title.
+
 ## [1.0.1] - 2026-11-11
 
 - Maintenance release, no functional change.
