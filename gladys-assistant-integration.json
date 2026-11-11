@@ -8,8 +8,8 @@
     "de": "Aufgaben, Einkaufsliste, Müllabfuhr und Geburtstage deines Melimelo-Haushalts.",
     "es": "Tareas, lista de la compra, recogida de basura y cumpleaños de su hogar Melimelo."
   },
-  "version": "1.0.0",
-  "docker_image": "ghcr.io/prohand/gladys-melimelo:1.0.0",
+  "version": "1.0.1",
+  "docker_image": "ghcr.io/prohand/gladys-melimelo:1.0.1",
   "gladys_version": ">=5.3.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-melimelo/main/cover.png",
   "categories": ["services", "notifications"],
@@ -230,7 +230,12 @@
         {
           "key": "title",
           "type": "string",
-          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" }
+          "label": {
+            "en": "Task",
+            "fr": "Tâche",
+            "de": "Aufgabe",
+            "es": "Tarea"
+          }
         },
         {
           "key": "assignee",
@@ -245,7 +250,12 @@
         {
           "key": "due_date",
           "type": "string",
-          "label": { "en": "Due date", "fr": "Échéance", "de": "Fälligkeit", "es": "Vencimiento" }
+          "label": {
+            "en": "Due date",
+            "fr": "Échéance",
+            "de": "Fälligkeit",
+            "es": "Vencimiento"
+          }
         }
       ]
     },
@@ -267,7 +277,12 @@
         {
           "key": "type",
           "type": "multi_select",
-          "label": { "en": "Collection", "fr": "Collecte", "de": "Abholung", "es": "Recogida" },
+          "label": {
+            "en": "Collection",
+            "fr": "Collecte",
+            "de": "Abholung",
+            "es": "Recogida"
+          },
           "options": [
             {
               "value": "household",
@@ -289,7 +304,12 @@
             },
             {
               "value": "glass",
-              "label": { "en": "Glass", "fr": "Verre", "de": "Glas", "es": "Vidrio" }
+              "label": {
+                "en": "Glass",
+                "fr": "Verre",
+                "de": "Glas",
+                "es": "Vidrio"
+              }
             },
             {
               "value": "compost",
@@ -311,7 +331,12 @@
             },
             {
               "value": "other",
-              "label": { "en": "Other", "fr": "Autre", "de": "Sonstige", "es": "Otra" }
+              "label": {
+                "en": "Other",
+                "fr": "Autre",
+                "de": "Sonstige",
+                "es": "Otra"
+              }
             }
           ]
         }
@@ -330,7 +355,12 @@
         {
           "key": "date",
           "type": "string",
-          "label": { "en": "Date", "fr": "Date", "de": "Datum", "es": "Fecha" }
+          "label": {
+            "en": "Date",
+            "fr": "Date",
+            "de": "Datum",
+            "es": "Fecha"
+          }
         }
       ]
     },
@@ -353,12 +383,22 @@
         {
           "key": "name",
           "type": "string",
-          "label": { "en": "Name", "fr": "Nom", "de": "Name", "es": "Nombre" }
+          "label": {
+            "en": "Name",
+            "fr": "Nom",
+            "de": "Name",
+            "es": "Nombre"
+          }
         },
         {
           "key": "age",
           "type": "number",
-          "label": { "en": "Age", "fr": "Âge", "de": "Alter", "es": "Edad" }
+          "label": {
+            "en": "Age",
+            "fr": "Âge",
+            "de": "Alter",
+            "es": "Edad"
+          }
         }
       ]
     },
@@ -381,12 +421,22 @@
         {
           "key": "item",
           "type": "string",
-          "label": { "en": "Item", "fr": "Article", "de": "Artikel", "es": "Artículo" }
+          "label": {
+            "en": "Item",
+            "fr": "Article",
+            "de": "Artikel",
+            "es": "Artículo"
+          }
         },
         {
           "key": "quantity",
           "type": "string",
-          "label": { "en": "Quantity", "fr": "Quantité", "de": "Menge", "es": "Cantidad" }
+          "label": {
+            "en": "Quantity",
+            "fr": "Quantité",
+            "de": "Menge",
+            "es": "Cantidad"
+          }
         },
         {
           "key": "added_by",
@@ -419,7 +469,12 @@
         {
           "key": "title",
           "type": "string",
-          "label": { "en": "Event", "fr": "Événement", "de": "Termin", "es": "Evento" }
+          "label": {
+            "en": "Event",
+            "fr": "Événement",
+            "de": "Termin",
+            "es": "Evento"
+          }
         },
         {
           "key": "start_time",
@@ -434,7 +489,12 @@
         {
           "key": "location",
           "type": "string",
-          "label": { "en": "Location", "fr": "Lieu", "de": "Ort", "es": "Lugar" }
+          "label": {
+            "en": "Location",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          }
         },
         {
           "key": "minutes",
@@ -469,13 +529,23 @@
         {
           "key": "item",
           "type": "string",
-          "label": { "en": "Item", "fr": "Article", "de": "Artikel", "es": "Artículo" },
+          "label": {
+            "en": "Item",
+            "fr": "Article",
+            "de": "Artikel",
+            "es": "Artículo"
+          },
           "required": true
         },
         {
           "key": "quantity",
           "type": "string",
-          "label": { "en": "Quantity", "fr": "Quantité", "de": "Menge", "es": "Cantidad" },
+          "label": {
+            "en": "Quantity",
+            "fr": "Quantité",
+            "de": "Menge",
+            "es": "Cantidad"
+          },
           "required": false
         }
       ],
@@ -511,13 +581,23 @@
         {
           "key": "title",
           "type": "string",
-          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" },
+          "label": {
+            "en": "Task",
+            "fr": "Tâche",
+            "de": "Aufgabe",
+            "es": "Tarea"
+          },
           "required": true
         },
         {
           "key": "due_date",
           "type": "string",
-          "label": { "en": "Due date", "fr": "Échéance", "de": "Fälligkeit", "es": "Vencimiento" },
+          "label": {
+            "en": "Due date",
+            "fr": "Échéance",
+            "de": "Fälligkeit",
+            "es": "Vencimiento"
+          },
           "required": false
         }
       ],
@@ -553,7 +633,12 @@
         {
           "key": "title",
           "type": "string",
-          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" },
+          "label": {
+            "en": "Task",
+            "fr": "Tâche",
+            "de": "Aufgabe",
+            "es": "Tarea"
+          },
           "required": true
         }
       ],
@@ -641,7 +726,12 @@
           "options": [
             {
               "value": "tasks",
-              "label": { "en": "Tasks", "fr": "Tâches", "de": "Aufgaben", "es": "Tareas" }
+              "label": {
+                "en": "Tasks",
+                "fr": "Tâches",
+                "de": "Aufgaben",
+                "es": "Tareas"
+              }
             },
             {
               "value": "shopping",
@@ -654,7 +744,12 @@
             },
             {
               "value": "agenda",
-              "label": { "en": "Agenda", "fr": "Agenda", "de": "Kalender", "es": "Agenda" }
+              "label": {
+                "en": "Agenda",
+                "fr": "Agenda",
+                "de": "Kalender",
+                "es": "Agenda"
+              }
             },
             {
               "value": "garbage",

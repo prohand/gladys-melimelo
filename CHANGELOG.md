@@ -6,6 +6,10 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-11
+
+- Maintenance release, no functional change.
+
 ## [1.0.0] - 2026-11-11
 
 ### Added
@@ -24,5 +28,6 @@ All notable changes to this integration are documented here. The format follows
 - CI (format, lint, tests on Node 22 and 24, store checks, Docker build), UI-driven release,
   multi-arch image, GitHub releases and Dependabot, as in gladys-devmel.
 
-[Unreleased]: https://github.com/prohand/gladys-melimelo/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/prohand/gladys-melimelo/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/prohand/gladys-melimelo/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/prohand/gladys-melimelo/releases/tag/v1.0.0
