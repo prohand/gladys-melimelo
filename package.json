@@ -1,6 +1,6 @@
 {
   "name": "gladys-melimelo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Gladys Assistant external integration for Melimelo, the household organizer (tasks, shopping list, bin days, birthdays, calendar).",
   "type": "module",

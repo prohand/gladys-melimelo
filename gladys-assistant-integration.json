@@ -8,8 +8,8 @@
     "de": "Aufgaben, Einkaufsliste, Müllabfuhr und Geburtstage deines Melimelo-Haushalts.",
     "es": "Tareas, lista de la compra, recogida de basura y cumpleaños de su hogar Melimelo."
   },
-  "version": "1.0.1",
-  "docker_image": "ghcr.io/prohand/gladys-melimelo:1.0.1",
+  "version": "1.0.2",
+  "docker_image": "ghcr.io/prohand/gladys-melimelo:1.0.2",
   "gladys_version": ">=5.3.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-melimelo/main/cover.png",
   "categories": ["services", "notifications"],
