@@ -1,0 +1,674 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Melimelo",
+  "description": {
+    "en": "Tasks, shopping list, bin days and birthdays of your Melimelo household in Gladys.",
+    "fr": "Tâches, courses, collecte des déchets et anniversaires de votre foyer Melimelo.",
+    "de": "Aufgaben, Einkaufsliste, Müllabfuhr und Geburtstage deines Melimelo-Haushalts.",
+    "es": "Tareas, lista de la compra, recogida de basura y cumpleaños de su hogar Melimelo."
+  },
+  "version": "1.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-melimelo:1.0.0",
+  "gladys_version": ">=5.3.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-melimelo/main/cover.png",
+  "categories": ["services", "notifications"],
+  "keywords": [
+    "melimelo",
+    "foyer",
+    "famille",
+    "liste de courses",
+    "tâches",
+    "poubelles",
+    "anniversaires",
+    "household",
+    "shopping list",
+    "family organizer"
+  ],
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
+      },
+      "description": {
+        "en": "This integration reads your Melimelo household from the Melimelo cloud: open tasks, shopping list, bin collection days, birthdays and the calendar. It needs the address of the Melimelo API and a personal access token of your household, both provided by Melimelo. Nothing is installed on your network.",
+        "fr": "Cette intégration lit votre foyer Melimelo depuis le cloud Melimelo : tâches ouvertes, liste de courses, jours de collecte des déchets, anniversaires et agenda. Il lui faut l'adresse de l'API Melimelo et un jeton d'accès personnel de votre foyer, tous deux fournis par Melimelo. Rien n'est installé sur votre réseau.",
+        "de": "Diese Integration liest deinen Melimelo-Haushalt aus der Melimelo-Cloud: offene Aufgaben, Einkaufsliste, Abholtage der Müllabfuhr, Geburtstage und Kalender. Sie braucht die Adresse der Melimelo-API und ein persönliches Zugriffstoken deines Haushalts, beides von Melimelo bereitgestellt. In deinem Netzwerk wird nichts installiert.",
+        "es": "Esta integración lee su hogar Melimelo desde la nube de Melimelo: tareas pendientes, lista de la compra, días de recogida de basura, cumpleaños y agenda. Necesita la dirección de la API de Melimelo y un token de acceso personal de su hogar, ambos proporcionados por Melimelo. No se instala nada en su red."
+      },
+      "links": [
+        {
+          "url": "https://melimelo.co",
+          "label": {
+            "en": "melimelo.co",
+            "fr": "melimelo.co",
+            "de": "melimelo.co",
+            "es": "melimelo.co"
+          }
+        },
+        {
+          "url": "https://github.com/prohand/gladys-melimelo/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "api_url",
+      "type": "string",
+      "label": {
+        "en": "Melimelo API URL",
+        "fr": "URL de l'API Melimelo",
+        "de": "URL der Melimelo-API",
+        "es": "URL de la API de Melimelo"
+      },
+      "description": {
+        "en": "The address of the Melimelo API, given by Melimelo. Only https addresses are accepted.",
+        "fr": "L'adresse de l'API Melimelo, fournie par Melimelo. Seules les adresses https sont acceptées.",
+        "de": "Die Adresse der Melimelo-API, von Melimelo bereitgestellt. Nur https-Adressen werden akzeptiert.",
+        "es": "La dirección de la API de Melimelo, proporcionada por Melimelo. Solo se aceptan direcciones https."
+      },
+      "placeholder": {
+        "en": "https://api.example.com/v1",
+        "fr": "https://api.example.com/v1",
+        "de": "https://api.example.com/v1",
+        "es": "https://api.example.com/v1"
+      },
+      "required": true
+    },
+    {
+      "key": "api_token",
+      "type": "secret",
+      "label": {
+        "en": "Access token",
+        "fr": "Jeton d'accès",
+        "de": "Zugriffstoken",
+        "es": "Token de acceso"
+      },
+      "description": {
+        "en": "The personal access token of your household. It is stored as a secret and only sent to the Melimelo API.",
+        "fr": "Le jeton d'accès personnel de votre foyer. Il est stocké comme un secret et envoyé uniquement à l'API Melimelo.",
+        "de": "Das persönliche Zugriffstoken deines Haushalts. Es wird als Geheimnis gespeichert und nur an die Melimelo-API gesendet.",
+        "es": "El token de acceso personal de su hogar. Se guarda como secreto y solo se envía a la API de Melimelo."
+      },
+      "required": true
+    },
+    {
+      "key": "sync_interval",
+      "type": "number",
+      "label": {
+        "en": "Synchronization interval (s)",
+        "fr": "Intervalle de synchronisation (s)",
+        "de": "Synchronisierungsintervall (s)",
+        "es": "Intervalo de sincronización (s)"
+      },
+      "description": {
+        "en": "How often Melimelo is read, in seconds (60 to 3600). The scene triggers are checked at the same pace.",
+        "fr": "Fréquence de lecture de Melimelo, en secondes (60 à 3600). Les déclencheurs de scène sont vérifiés au même rythme.",
+        "de": "Wie oft Melimelo gelesen wird, in Sekunden (60 bis 3600). Die Szenen-Auslöser werden im selben Takt geprüft.",
+        "es": "Con qué frecuencia se lee Melimelo, en segundos (60 a 3600). Los disparadores de escena se comprueban al mismo ritmo."
+      },
+      "required": false,
+      "default": 300,
+      "min": 60,
+      "max": 3600
+    },
+    {
+      "key": "garbage_reminder_hour",
+      "type": "number",
+      "label": {
+        "en": "Bin reminder hour",
+        "fr": "Heure du rappel poubelles",
+        "de": "Uhrzeit der Müll-Erinnerung",
+        "es": "Hora del aviso de basura"
+      },
+      "description": {
+        "en": "From this hour (0 to 23), the day before a collection, the \"bins go out tomorrow\" trigger fires.",
+        "fr": "À partir de cette heure (0 à 23), la veille d'une collecte, le déclencheur « poubelles demain » se déclenche.",
+        "de": "Ab dieser Uhrzeit (0 bis 23) am Vortag einer Abholung löst der Auslöser „Müllabfuhr morgen“ aus.",
+        "es": "A partir de esta hora (0 a 23), el día antes de una recogida, se activa el disparador «basura mañana»."
+      },
+      "required": false,
+      "default": 19,
+      "min": 0,
+      "max": 23
+    },
+    {
+      "key": "event_notice_minutes",
+      "type": "number",
+      "label": {
+        "en": "Event notice (min)",
+        "fr": "Préavis des événements (min)",
+        "de": "Vorlauf für Termine (min)",
+        "es": "Aviso de eventos (min)"
+      },
+      "description": {
+        "en": "How many minutes before a calendar event the \"event about to start\" trigger fires (5 to 240).",
+        "fr": "Combien de minutes avant un événement de l'agenda le déclencheur « événement imminent » se déclenche (5 à 240).",
+        "de": "Wie viele Minuten vor einem Termin der Auslöser „Termin beginnt gleich“ auslöst (5 bis 240).",
+        "es": "Cuántos minutos antes de un evento de la agenda se activa el disparador «evento a punto de empezar» (5 a 240)."
+      },
+      "required": false,
+      "default": 15,
+      "min": 5,
+      "max": 240
+    },
+    {
+      "key": "timezone",
+      "type": "string",
+      "label": {
+        "en": "Time zone",
+        "fr": "Fuseau horaire",
+        "de": "Zeitzone",
+        "es": "Zona horaria"
+      },
+      "description": {
+        "en": "The time zone of the household, used to know what \"today\" and \"tomorrow\" are (IANA name, e.g. Europe/Paris).",
+        "fr": "Le fuseau horaire du foyer, pour savoir ce que sont « aujourd'hui » et « demain » (nom IANA, ex. Europe/Paris).",
+        "de": "Die Zeitzone des Haushalts, um zu wissen, was „heute“ und „morgen“ sind (IANA-Name, z. B. Europe/Berlin).",
+        "es": "La zona horaria del hogar, para saber qué son «hoy» y «mañana» (nombre IANA, p. ej. Europe/Madrid)."
+      },
+      "placeholder": {
+        "en": "Europe/Paris",
+        "fr": "Europe/Paris",
+        "de": "Europe/Berlin",
+        "es": "Europe/Madrid"
+      },
+      "required": false,
+      "default": "Europe/Paris"
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 30
+    },
+    {
+      "key": "sync_now",
+      "label": {
+        "en": "Synchronize now",
+        "fr": "Synchroniser maintenant",
+        "de": "Jetzt synchronisieren",
+        "es": "Sincronizar ahora"
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "task_due",
+      "label": {
+        "en": "A Melimelo task is due today",
+        "fr": "Une tâche Melimelo arrive à échéance",
+        "de": "Eine Melimelo-Aufgabe ist heute fällig",
+        "es": "Una tarea de Melimelo vence hoy"
+      },
+      "description": {
+        "en": "Fires once per open task, on its due date.",
+        "fr": "Se déclenche une fois par tâche ouverte, le jour de son échéance.",
+        "de": "Löst einmal pro offener Aufgabe an ihrem Fälligkeitstag aus.",
+        "es": "Se activa una vez por tarea pendiente, el día de su vencimiento."
+      },
+      "fields": [],
+      "variables": [
+        {
+          "key": "title",
+          "type": "string",
+          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" }
+        },
+        {
+          "key": "assignee",
+          "type": "string",
+          "label": {
+            "en": "Assigned to",
+            "fr": "Assignée à",
+            "de": "Zugewiesen an",
+            "es": "Asignada a"
+          }
+        },
+        {
+          "key": "due_date",
+          "type": "string",
+          "label": { "en": "Due date", "fr": "Échéance", "de": "Fälligkeit", "es": "Vencimiento" }
+        }
+      ]
+    },
+    {
+      "key": "garbage_collection_tomorrow",
+      "label": {
+        "en": "Bins go out tomorrow",
+        "fr": "Sortir les poubelles (collecte demain)",
+        "de": "Müllabfuhr ist morgen",
+        "es": "Mañana pasa la recogida de basura"
+      },
+      "description": {
+        "en": "Fires the day before a collection, from the reminder hour set in the configuration.",
+        "fr": "Se déclenche la veille d'une collecte, à partir de l'heure de rappel choisie dans la configuration.",
+        "de": "Löst am Vortag einer Abholung aus, ab der in der Konfiguration gewählten Uhrzeit.",
+        "es": "Se activa el día antes de una recogida, a partir de la hora de aviso elegida en la configuración."
+      },
+      "fields": [
+        {
+          "key": "type",
+          "type": "multi_select",
+          "label": { "en": "Collection", "fr": "Collecte", "de": "Abholung", "es": "Recogida" },
+          "options": [
+            {
+              "value": "household",
+              "label": {
+                "en": "Household waste",
+                "fr": "Ordures ménagères",
+                "de": "Restmüll",
+                "es": "Basura"
+              }
+            },
+            {
+              "value": "recycling",
+              "label": {
+                "en": "Recycling",
+                "fr": "Recyclage",
+                "de": "Wertstoffe",
+                "es": "Reciclaje"
+              }
+            },
+            {
+              "value": "glass",
+              "label": { "en": "Glass", "fr": "Verre", "de": "Glas", "es": "Vidrio" }
+            },
+            {
+              "value": "compost",
+              "label": {
+                "en": "Organic waste",
+                "fr": "Biodéchets",
+                "de": "Biomüll",
+                "es": "Orgánico"
+              }
+            },
+            {
+              "value": "bulky",
+              "label": {
+                "en": "Bulky waste",
+                "fr": "Encombrants",
+                "de": "Sperrmüll",
+                "es": "Voluminosos"
+              }
+            },
+            {
+              "value": "other",
+              "label": { "en": "Other", "fr": "Autre", "de": "Sonstige", "es": "Otra" }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "label",
+          "type": "string",
+          "label": {
+            "en": "Collection name",
+            "fr": "Nom de la collecte",
+            "de": "Name der Abholung",
+            "es": "Nombre de la recogida"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": { "en": "Date", "fr": "Date", "de": "Datum", "es": "Fecha" }
+        }
+      ]
+    },
+    {
+      "key": "birthday_today",
+      "label": {
+        "en": "It is someone's birthday",
+        "fr": "C'est l'anniversaire de quelqu'un",
+        "de": "Jemand hat Geburtstag",
+        "es": "Es el cumpleaños de alguien"
+      },
+      "description": {
+        "en": "Fires once on the day of a birthday saved in Melimelo.",
+        "fr": "Se déclenche une fois le jour d'un anniversaire enregistré dans Melimelo.",
+        "de": "Löst einmal am Tag eines in Melimelo gespeicherten Geburtstags aus.",
+        "es": "Se activa una vez el día de un cumpleaños guardado en Melimelo."
+      },
+      "fields": [],
+      "variables": [
+        {
+          "key": "name",
+          "type": "string",
+          "label": { "en": "Name", "fr": "Nom", "de": "Name", "es": "Nombre" }
+        },
+        {
+          "key": "age",
+          "type": "number",
+          "label": { "en": "Age", "fr": "Âge", "de": "Alter", "es": "Edad" }
+        }
+      ]
+    },
+    {
+      "key": "shopping_item_added",
+      "label": {
+        "en": "An item is added to the shopping list",
+        "fr": "Un article est ajouté à la liste de courses",
+        "de": "Ein Artikel kommt auf die Einkaufsliste",
+        "es": "Se añade un artículo a la lista de la compra"
+      },
+      "description": {
+        "en": "A member of the household added an item in Melimelo. Items added by Gladys never fire it.",
+        "fr": "Un membre du foyer a ajouté un article dans Melimelo. Les articles ajoutés par Gladys ne le déclenchent jamais.",
+        "de": "Ein Mitglied des Haushalts hat in Melimelo einen Artikel hinzugefügt. Von Gladys hinzugefügte Artikel lösen dies nie aus.",
+        "es": "Un miembro del hogar ha añadido un artículo en Melimelo. Los artículos añadidos por Gladys nunca lo activan."
+      },
+      "fields": [],
+      "variables": [
+        {
+          "key": "item",
+          "type": "string",
+          "label": { "en": "Item", "fr": "Article", "de": "Artikel", "es": "Artículo" }
+        },
+        {
+          "key": "quantity",
+          "type": "string",
+          "label": { "en": "Quantity", "fr": "Quantité", "de": "Menge", "es": "Cantidad" }
+        },
+        {
+          "key": "added_by",
+          "type": "string",
+          "label": {
+            "en": "Added by",
+            "fr": "Ajouté par",
+            "de": "Hinzugefügt von",
+            "es": "Añadido por"
+          }
+        }
+      ]
+    },
+    {
+      "key": "event_starting_soon",
+      "label": {
+        "en": "A calendar event is about to start",
+        "fr": "Un événement de l'agenda va commencer",
+        "de": "Ein Termin beginnt gleich",
+        "es": "Un evento de la agenda va a empezar"
+      },
+      "description": {
+        "en": "Fires once per event of the household calendar, a few minutes before it starts (all-day events excluded).",
+        "fr": "Se déclenche une fois par événement de l'agenda du foyer, quelques minutes avant son début (hors journées entières).",
+        "de": "Löst einmal pro Termin des Haushaltskalenders aus, einige Minuten vor Beginn (ganztägige Termine ausgenommen).",
+        "es": "Se activa una vez por evento de la agenda del hogar, unos minutos antes de que empiece (salvo eventos de todo el día)."
+      },
+      "fields": [],
+      "variables": [
+        {
+          "key": "title",
+          "type": "string",
+          "label": { "en": "Event", "fr": "Événement", "de": "Termin", "es": "Evento" }
+        },
+        {
+          "key": "start_time",
+          "type": "string",
+          "label": {
+            "en": "Start time",
+            "fr": "Heure de début",
+            "de": "Beginn",
+            "es": "Hora de inicio"
+          }
+        },
+        {
+          "key": "location",
+          "type": "string",
+          "label": { "en": "Location", "fr": "Lieu", "de": "Ort", "es": "Lugar" }
+        },
+        {
+          "key": "minutes",
+          "type": "number",
+          "label": {
+            "en": "Minutes left",
+            "fr": "Minutes restantes",
+            "de": "Verbleibende Minuten",
+            "es": "Minutos restantes"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "add_shopping_item",
+      "label": {
+        "en": "Add to the Melimelo shopping list",
+        "fr": "Ajouter à la liste de courses Melimelo",
+        "de": "Zur Melimelo-Einkaufsliste hinzufügen",
+        "es": "Añadir a la lista de la compra de Melimelo"
+      },
+      "description": {
+        "en": "Adds an item to the shopping list of the household.",
+        "fr": "Ajoute un article à la liste de courses du foyer.",
+        "de": "Fügt der Einkaufsliste des Haushalts einen Artikel hinzu.",
+        "es": "Añade un artículo a la lista de la compra del hogar."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "item",
+          "type": "string",
+          "label": { "en": "Item", "fr": "Article", "de": "Artikel", "es": "Artículo" },
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "string",
+          "label": { "en": "Quantity", "fr": "Quantité", "de": "Menge", "es": "Cantidad" },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "added",
+          "type": "boolean",
+          "label": {
+            "en": "Item added",
+            "fr": "Article ajouté",
+            "de": "Artikel hinzugefügt",
+            "es": "Artículo añadido"
+          }
+        }
+      ]
+    },
+    {
+      "key": "create_task",
+      "label": {
+        "en": "Create a Melimelo task",
+        "fr": "Créer une tâche Melimelo",
+        "de": "Melimelo-Aufgabe erstellen",
+        "es": "Crear una tarea de Melimelo"
+      },
+      "description": {
+        "en": "Creates a task in the household, with an optional due date (YYYY-MM-DD).",
+        "fr": "Crée une tâche dans le foyer, avec une échéance facultative (AAAA-MM-JJ).",
+        "de": "Erstellt eine Aufgabe im Haushalt, mit optionaler Fälligkeit (JJJJ-MM-TT).",
+        "es": "Crea una tarea en el hogar, con un vencimiento opcional (AAAA-MM-DD)."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "title",
+          "type": "string",
+          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" },
+          "required": true
+        },
+        {
+          "key": "due_date",
+          "type": "string",
+          "label": { "en": "Due date", "fr": "Échéance", "de": "Fälligkeit", "es": "Vencimiento" },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "task_id",
+          "type": "string",
+          "label": {
+            "en": "Task id",
+            "fr": "Identifiant de la tâche",
+            "de": "Aufgaben-ID",
+            "es": "Id de la tarea"
+          }
+        }
+      ]
+    },
+    {
+      "key": "complete_task",
+      "label": {
+        "en": "Complete a Melimelo task",
+        "fr": "Terminer une tâche Melimelo",
+        "de": "Melimelo-Aufgabe erledigen",
+        "es": "Completar una tarea de Melimelo"
+      },
+      "description": {
+        "en": "Marks the open task with this title as done. \"completed\" says whether one was found.",
+        "fr": "Marque comme faite la tâche ouverte portant ce titre. « completed » indique si elle a été trouvée.",
+        "de": "Markiert die offene Aufgabe mit diesem Titel als erledigt. „completed“ sagt, ob sie gefunden wurde.",
+        "es": "Marca como hecha la tarea pendiente con este título. «completed» indica si se encontró."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "title",
+          "type": "string",
+          "label": { "en": "Task", "fr": "Tâche", "de": "Aufgabe", "es": "Tarea" },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "completed",
+          "type": "boolean",
+          "label": {
+            "en": "Task completed",
+            "fr": "Tâche terminée",
+            "de": "Aufgabe erledigt",
+            "es": "Tarea completada"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sync_now",
+      "label": {
+        "en": "Synchronize Melimelo",
+        "fr": "Synchroniser Melimelo",
+        "de": "Melimelo synchronisieren",
+        "es": "Sincronizar Melimelo"
+      },
+      "description": {
+        "en": "Reads Melimelo right away and gives the fresh counts to the next actions.",
+        "fr": "Lit Melimelo tout de suite et donne les compteurs à jour aux actions suivantes.",
+        "de": "Liest Melimelo sofort und gibt die aktuellen Zahlen an die nächsten Aktionen weiter.",
+        "es": "Lee Melimelo de inmediato y pasa los contadores actualizados a las siguientes acciones."
+      },
+      "timeout_seconds": 30,
+      "fields": [],
+      "outputs": [
+        {
+          "key": "tasks_open",
+          "type": "number",
+          "label": {
+            "en": "Open tasks",
+            "fr": "Tâches ouvertes",
+            "de": "Offene Aufgaben",
+            "es": "Tareas pendientes"
+          }
+        },
+        {
+          "key": "shopping_items",
+          "type": "number",
+          "label": {
+            "en": "Items to buy",
+            "fr": "Articles à acheter",
+            "de": "Zu kaufende Artikel",
+            "es": "Artículos por comprar"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "household",
+      "label": {
+        "en": "Melimelo household",
+        "fr": "Foyer Melimelo",
+        "de": "Melimelo-Haushalt",
+        "es": "Hogar Melimelo"
+      },
+      "description": {
+        "en": "Tasks, shopping list, agenda and bin days of the household.",
+        "fr": "Tâches, courses, agenda et collecte des déchets du foyer.",
+        "de": "Aufgaben, Einkaufsliste, Kalender und Müllabfuhr des Haushalts.",
+        "es": "Tareas, compra, agenda y recogida de basura del hogar."
+      },
+      "icon": "home",
+      "settings": [
+        {
+          "key": "list",
+          "type": "select",
+          "label": {
+            "en": "List shown",
+            "fr": "Liste affichée",
+            "de": "Angezeigte Liste",
+            "es": "Lista mostrada"
+          },
+          "required": false,
+          "default": "tasks",
+          "options": [
+            {
+              "value": "tasks",
+              "label": { "en": "Tasks", "fr": "Tâches", "de": "Aufgaben", "es": "Tareas" }
+            },
+            {
+              "value": "shopping",
+              "label": {
+                "en": "Shopping list",
+                "fr": "Liste de courses",
+                "de": "Einkaufsliste",
+                "es": "Lista de la compra"
+              }
+            },
+            {
+              "value": "agenda",
+              "label": { "en": "Agenda", "fr": "Agenda", "de": "Kalender", "es": "Agenda" }
+            },
+            {
+              "value": "garbage",
+              "label": {
+                "en": "Bin days",
+                "fr": "Collecte des déchets",
+                "de": "Müllabfuhr",
+                "es": "Recogida de basura"
+              }
+            }
+          ]
+        }
+      ],
+      "action_timeout_seconds": 30
+    }
+  ]
+}
