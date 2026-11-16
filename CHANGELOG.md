@@ -6,6 +6,10 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-11-16
+
+- Maintenance release, no functional change.
+
 ## [1.0.4] - 2026-11-16
 
 - Update `@gladysassistant/integration-sdk` to 0.16.1 (security update).
@@ -42,7 +46,8 @@ All notable changes to this integration are documented here. The format follows
 - CI (format, lint, tests on Node 22 and 24, store checks, Docker build), UI-driven release,
   multi-arch image, GitHub releases and Dependabot, as in gladys-devmel.
 
-[Unreleased]: https://github.com/prohand/gladys-melimelo/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/prohand/gladys-melimelo/compare/v1.0.5...HEAD
+[1.0.5]: https://github.com/prohand/gladys-melimelo/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/prohand/gladys-melimelo/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/prohand/gladys-melimelo/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/prohand/gladys-melimelo/compare/v1.0.1...v1.0.2
